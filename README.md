@@ -7,7 +7,7 @@ This is a simple fractal demo. Right now it's only featuring the mandelbrot set.
 ## Building and running
 
 * Download the repository
-* Open src/ in your favorite shell and write:
+* Open the source directory 'src/' in your favorite shell and write:
 ```
 javac main.java
 java main
