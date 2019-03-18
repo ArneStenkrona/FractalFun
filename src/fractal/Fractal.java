@@ -1,6 +1,7 @@
 package fractal;
 
 
+import javax.print.attribute.standard.Finishings;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.stream.IntStream;
@@ -12,16 +13,15 @@ public abstract class Fractal {
     /**Number of iterations allowed when calculating rate of divergence**/
     int maxIterations;
 
+    public static final int DEFAULT_ITERATIONS = 100;
+    public static final int ABSOLUTE_MAX_ITERATIONS = 10000;
+
     public Fractal(){
-        maxIterations = 100;
+        maxIterations = DEFAULT_ITERATIONS;
     }
 
     public void setMaxIterations(int iterations){
-        if (iterations < 10000 && iterations > 0) {
             maxIterations = iterations;
-        } else {
-            System.err.println("Illegal iteration amount.");
-        }
     }
 
     /**
