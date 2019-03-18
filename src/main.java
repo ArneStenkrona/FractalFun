@@ -1,4 +1,6 @@
+import fractal.Julia;
 import fractal.Mandelbrot;
+import view.GUI;
 import view.Viewport;
 
 /**
@@ -9,8 +11,6 @@ public class main {
     static int height = 1080 / 2;
 
     public static void main(String[] args) {
-        Mandelbrot m = new Mandelbrot();
-        Viewport vp = new Viewport(width, height, m);
-        vp.drawFractal();
+        GUI gui = new GUI(width, height);
     }
 }
