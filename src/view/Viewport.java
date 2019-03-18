@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /** Viewport for fractals **/
-public class Viewport extends JFrame {
+public class Viewport extends Screen {
 
     //private int width;
     //private int height;
@@ -25,12 +25,11 @@ public class Viewport extends JFrame {
 
     private Fractal fractal;
 
-    public Viewport(int width, int height, Fractal fractal) {
-        //this.width = width;
-        //this.height = height;
-        //this.aspectRatio = width / height;
+        public Viewport(int width, int height, Fractal fractal) {
+        super(width, height);
+
         setSize(width,height);
-        setResizable(false);
+        setPreferredSize(new Dimension(width, height));
 
         this.domainReal = -2;
         this.domainImag = -1;
@@ -38,28 +37,23 @@ public class Viewport extends JFrame {
 
         this.fractal = fractal;
 
-        //setTitle("Mandelbrot");
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        init();
-
         MouseInput mInput = new MouseInput(this);
-        screen.addMouseListener(mInput);
-        screen.addMouseMotionListener(mInput);
+        addMouseListener(mInput);
+        addMouseMotionListener(mInput);
+    }
+    
+    public void setFractal(Fractal f){
+        this.fractal = f;
+    }
+    
+    public void setMaxIterations(int i) {
+        if (i <= 10000 && i > 0) {
+            fractal.setMaxIterations(i);
+        } else {
+            System.err.println("Illegal iteration amount.");
+        }
     }
 
-    /**
-     * Initialize the viewport
-     * **/
-    private void init() {
-        setLocation(0,0);
-        setLayout(new GridLayout(1,1,0,0));
-
-        screen = new Screen(getWidth(),getHeight());
-        add(screen);
-
-        setVisible(true);
-    }
 
     /**
      * Draw fractal as specified by domain members
