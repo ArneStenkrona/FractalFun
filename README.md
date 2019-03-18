@@ -2,7 +2,7 @@
 
 # FractalFun
 
-This is a simple fractal demo. Right now it's only featuring the mandelbrot set.
+This is a simple fractal demo. Choose between Mandelbrot or Julia set. 
 
 ## Building and running
 
