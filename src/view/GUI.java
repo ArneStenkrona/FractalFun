@@ -1,6 +1,6 @@
 package view;
 
-//import fractal.Julia;
+import fractal.Julia;
 import fractal.Mandelbrot;
 
 import javax.swing.*;
