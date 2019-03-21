@@ -1,5 +1,6 @@
 package view;
 
+import fractal.Fractal;
 import fractal.Julia;
 import fractal.Mandelbrot;
 
@@ -53,33 +54,8 @@ public class GUI extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         add(panel, c);
         pack();
-        // fractal buttons
-        JLabel bl = new JLabel(" Fractal: ");
-        panel.add(bl);
-        JButton mb = new JButton("Mandelbrot");
-        mb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewport.setFractal(new Mandelbrot());
-                viewport.resetDomain();
-                viewport.drawFractal();
-            }
-            });
 
-        JButton mj = new JButton("Julia");
-        mj.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewport.setFractal(new Julia(-0.7269, 0.1889));
-                viewport.resetDomain();
-                viewport.drawFractal();
-            }
-        });
-        panel.add(mb);
-        panel.add(mj);
         // iteration count
-        JLabel il = new JLabel(" Iterations: ");
-        panel.add(il);
         SpinnerModel model = new SpinnerNumberModel(100, 1, 10000, 1);
         JSpinner spinner = new JSpinner(model);
         spinner.setPreferredSize(spinner.getPreferredSize());
@@ -91,6 +67,36 @@ public class GUI extends JFrame {
                 viewport.drawFractal();
             }
         });
+
+        // fractal buttons
+        JLabel bl = new JLabel(" Fractal: ");
+        panel.add(bl);
+        JButton mb = new JButton("Mandelbrot");
+        mb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewport.setFractal(new Mandelbrot());
+                viewport.resetDomain();
+                viewport.drawFractal();
+                spinner.setValue((int) Fractal.DEFAULT_ITERATIONS);
+            }
+            });
+
+        JButton mj = new JButton("Julia");
+        mj.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewport.setFractal(new Julia(-0.7269, 0.1889));
+                viewport.resetDomain();
+                viewport.drawFractal();
+                spinner.setValue((int) Fractal.DEFAULT_ITERATIONS);
+            }
+        });
+        panel.add(mb);
+        panel.add(mj);
+
+        JLabel il = new JLabel(" Iterations: ");
+        panel.add(il);
         panel.add(spinner);
     }
 
