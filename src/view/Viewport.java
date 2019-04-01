@@ -7,17 +7,12 @@ package view;
 import fractal.Fractal;
 import input.MouseInput;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /** Viewport for fractals **/
 public class Viewport extends Screen {
 
-    //private int width;
-    //private int height;
-    //static double aspectRatio;
-    private Screen screen;
      /** Attributes specifying the domain to be drawn **/
     double domainReal; // real part of the lower left part of the domain
     double domainImag; // imaginary part of the lower left part of the domain
@@ -59,20 +54,20 @@ public class Viewport extends Screen {
      * Draw fractal as specified by domain members
      * **/
     public void drawFractal() {
-        BufferedImage img = fractal.draw(domainReal, domainImag, domainWidth, screen.getWidth(), screen.getHeight());
-        screen.setImageBuffer(img);
-        screen.draw();
+        BufferedImage img = fractal.draw(domainReal, domainImag, domainWidth, getWidth(), getHeight());
+        setImageBuffer(img);
+        draw();
     }
 
     public void drawSelection(int x1, int y1, int x2, int y2){
 
         int w = Math.abs(x2 - x1);
-        int h = w * screen.getHeight() / screen.getWidth();
+        int h = w * getHeight() / getWidth();
 
         int x = x1 < x2 ? x1 : x1 - w;
         int y =  y1 < y2 ? y1 : y1 - h;
 
-        screen.drawWithSelection(x, y, w, h);
+        drawWithSelection(x, y, w, h);
     }
 
     /**
@@ -85,17 +80,17 @@ public class Viewport extends Screen {
      * **/
     public void zoom(int x1, int y1, int x2, int y2) {
         // compensate for screen coordinates being inverted
-        y1 = screen.getHeight() - y1;
-        y2 = screen.getHeight() - y2;
+        y1 = getHeight() - y1;
+        y2 = getHeight() - y2;
 
-        double w = Math.abs(x2 - x1) / (float)screen.getWidth() * domainWidth;
-        double h = w * screen.getHeight() / screen.getWidth();
+        double w = Math.abs(x2 - x1) / (float)getWidth() * domainWidth;
+        double h = w * getHeight() / getWidth();
 
 
-        double x = x1 < x2 ? domainReal + (x1  / (float)screen.getWidth()) * domainWidth :
-                             domainReal + (x1  / (float)screen.getWidth()) * domainWidth - w;
-        double y = y1 < y2 ? domainImag + (y1 / (float)screen.getHeight()) * getDomainHeight() :
-                             domainImag + (y1 / (float)screen.getHeight()) * getDomainHeight() - h;
+        double x = x1 < x2 ? domainReal + (x1  / (float)getWidth()) * domainWidth :
+                             domainReal + (x1  / (float)getWidth()) * domainWidth - w;
+        double y = y1 < y2 ? domainImag + (y1 / (float)getHeight()) * getDomainHeight() :
+                             domainImag + (y1 / (float)getHeight()) * getDomainHeight() - h;
 
         // change domain
         domainReal = x;
@@ -108,6 +103,12 @@ public class Viewport extends Screen {
      * @return height of the domain, i.e. range of the imaginary component
      * */
     public double getDomainHeight(){
-        return domainWidth * screen.getHeight() / screen.getWidth();
+        return domainWidth * getHeight() / getWidth();
+    }
+
+    public void resetDomain() {
+        this.domainReal = -2;
+        this.domainImag = -1;
+        this.domainWidth = 4;
     }
 }
