@@ -4,7 +4,7 @@
 
 This is a simple fractal demo. Choose between Mandelbrot or the Julia set with c = -0.7269 + 0.1889i. 
 
-## What are the Mandelbrot and Julia set?
+## What are the Mandelbrot and Julia sets?
 
 These are examples of fractal structures generated in the complex plane by means of repeated function iteration.
 This is a very loose explanation. For more thorough information, please see:
